@@ -1,0 +1,3 @@
+C:/Users/user/Desktop/NestingAPI/NestingAPI/out/build/x64-debug/CMakeFiles/NestingAPI.dir
+C:/Users/user/Desktop/NestingAPI/NestingAPI/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/user/Desktop/NestingAPI/NestingAPI/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
