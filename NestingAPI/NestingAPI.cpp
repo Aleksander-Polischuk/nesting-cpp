@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <vector>
+#include <cmath>
 #include <clocale>
 
 #define LIBNEST2D_GEOMETRIES_clipper
@@ -9,116 +10,105 @@
 #include <nlohmann/json.hpp>
 #include <polyclipping/clipper.hpp>
 #include <libnest2d/libnest2d.hpp>
-#include <libnest2d/optimizers/nlopt/simplex.hpp>
 
 using json = nlohmann::json;
+using namespace libnest2d;
 
-using ItemType = libnest2d::Item;
-using BinType = libnest2d::Box;
-using Coord = libnest2d::Coord;
-using PointImpl = libnest2d::Point;
-using PolygonImpl = libnest2d::PolygonImpl;
-
-// МАСШТАБ: 1 мм = 100 одиниць. 
-// Цього достатньо, щоб мікро-фаска не перетворилася на нуль, і безпечно для процесора.
-inline Coord to_internal(double mm) {
-    return static_cast<Coord>(mm * 100.0);
-}
-
-inline double to_mm(Coord internal) {
-    return static_cast<double>(internal) / 100.0;
-}
+// МАСШТАБ: 1000 одиниць = 1 мм (найкраще для Clipper)
+const double SCALE = 1000.0;
+inline Coord to_int(double val) { return static_cast<Coord>(std::round(val * SCALE)); }
+inline double to_mm(Coord val) { return static_cast<double>(val) / SCALE; }
 
 int main(int argc, char* argv[]) {
     std::setlocale(LC_ALL, "C");
 
-    // ТИМЧАСОВО для дебагу жорстко прописуємо імена файлів
-    std::string in_file = "input.json";
-    std::string out_file = "output.json";
+    // Читаємо аргументи правильно з командного рядка
+    std::string in_file = (argc > 1) ? argv[1] : "input.json";
+    std::string out_file = (argc > 2) ? argv[2] : "output.json";
 
     try {
-        std::cout << "[1/4] Reading " << in_file << std::endl;
-        std::ifstream input_file(in_file);
-        if (!input_file.is_open()) {
-            std::cerr << "Cannot find input.json! Make sure it is in the same folder as the .exe" << std::endl;
+        std::ifstream f_in(in_file);
+        if (!f_in.is_open()) {
+            std::cerr << "Error: Cannot open " << in_file << std::endl;
             return 1;
         }
         json data;
-        input_file >> data;
+        f_in >> data;
 
-        Coord sheet_w = to_internal(data["sheet_width"].get<double>());
-        Coord sheet_h = to_internal(data["sheet_height"].get<double>());
-        BinType sheet_box(sheet_w, sheet_h);
+        // Налаштування аркуша
+        Box sheet(to_int(data["sheet_width"].get<double>()),
+            to_int(data["sheet_height"].get<double>()));
 
-        std::vector<ItemType> items;
+        double gap_mm = data.contains("settings") ? data["settings"].value("gap_mm", 0.0) : 0.0;
 
-        Coord gap = to_internal(1.0);
-        Coord d = to_internal(0.02); // НАШ РЯТІВНИК: Фаска 0.02 мм
+        std::vector<Item> items;
+        std::vector<int> source_ids;
 
-        for (const auto& part : data["parts"]) {
+        for (int i = 0; i < (int)data["parts"].size(); ++i) {
+            const auto& part = data["parts"][i];
             int qty = part.value("qty", 1);
-            Coord w = to_internal(part["w"].get<double>()) + gap;
-            Coord h = to_internal(part["h"].get<double>()) + gap;
 
-            // БУДУЄМО ФІГУРУ ЗІ ЗРІЗАНИМИ КУТАМИ
-            // Замість 4 точок, робимо 8. Це повністю блокує баг Clipper-а.
-            libnest2d::PathImpl rect_path;
-            rect_path.push_back(PointImpl(d, 0));
-            rect_path.push_back(PointImpl(0, d));
-            rect_path.push_back(PointImpl(0, h - d));
-            rect_path.push_back(PointImpl(d, h));
-            rect_path.push_back(PointImpl(w - d, h));
-            rect_path.push_back(PointImpl(w, h - d));
-            rect_path.push_back(PointImpl(w, d));
-            rect_path.push_back(PointImpl(w - d, 0));
+            ClipperLib::Path path;
+            if (part.contains("shape")) {
+                for (const auto& pt : part["shape"])
+                    path.push_back({ to_int(pt["x"].get<double>()), to_int(pt["y"].get<double>()) });
+            }
+            else {
+                double w = part["w"].get<double>();
+                double h = part["h"].get<double>();
+                path = { {0,0}, {to_int(w), 0}, {to_int(w), to_int(h)}, {0, to_int(h)} };
+            }
 
-            PolygonImpl poly(rect_path);
+            // ВАЖЛИВО: Очищення та фіксація орієнтації (Clipper)
+            ClipperLib::CleanPolygon(path, 1.0);
+            if (!ClipperLib::Orientation(path)) ClipperLib::ReversePath(path);
 
-            for (int i = 0; i < qty; ++i) {
+            if (path.size() < 3) continue;
+
+            PolygonImpl poly(path);
+            for (int q = 0; q < qty; ++q) {
                 items.emplace_back(poly);
+                source_ids.push_back(i);
             }
         }
 
-        std::cout << "[2/4] Starting nesting engine (NfpPlacer with Chamfer Hack)..." << std::endl;
+        std::cout << "[1/2] Nesting " << items.size() << " parts on "
+            << data["sheet_width"] << "x" << data["sheet_height"] << "..." << std::endl;
 
-        // Розкрій без автоматичних зазорів (щоб бібліотека не псувала наші контури)
-        size_t num_sheets = libnest2d::nest(items, sheet_box);
+        // Використовуємо BottomLeftPlacer для стабільності на старті
+        size_t sheets_used = nest<BottomLeftPlacer>(items, sheet, to_int(gap_mm));
 
-        std::cout << "[3/4] Nesting finished! Sheets: " << num_sheets << std::endl;
+        json res = { {"status", "success"}, {"sheets_count", (int)sheets_used}, {"sheets", json::array()} };
+        for (size_t s = 0; s < sheets_used; ++s)
+            res["sheets"].push_back({ {"sheet_id", (int)s}, {"placed_parts", json::array()} });
 
-        json result_json;
-        result_json["status"] = "success";
-        result_json["sheets_count"] = (int)num_sheets;
-        result_json["sheets"] = json::array();
+        int placed_count = 0;
+        for (size_t i = 0; i < items.size(); ++i) {
+            const auto& item = items[i];
+            int b_id = item.binId();
+            if (b_id < 0) continue; // Ця деталь не влізла на аркуш!
 
-        for (size_t s = 0; s < num_sheets; ++s) {
-            json sheet_data;
-            sheet_data["sheet_id"] = (int)s;
-            sheet_data["placed_parts"] = json::array();
+            placed_count++;
+            PolygonImpl shape = item.transformedShape();
+            json pts = json::array();
+            for (const auto& pt : shape.Contour) pts.push_back({ {"x", to_mm(pt.X)}, {"y", to_mm(pt.Y)} });
+            if (!pts.empty()) pts.push_back(pts[0]);
 
-            for (const auto& item : items) {
-                if (item.binId() == (int)s) {
-                    json p;
-                    p["x"] = to_mm(item.translation().X);
-                    p["y"] = to_mm(item.translation().Y);
-                    p["rotation"] = (double)item.rotation();
-                    sheet_data["placed_parts"].push_back(p);
-                }
-            }
-            result_json["sheets"].push_back(sheet_data);
+            res["sheets"][b_id]["placed_parts"].push_back({
+                {"part_id", source_ids[i]},
+                {"rotation", (double)item.rotation()},
+                {"points", pts}
+                });
         }
 
-        std::cout << "[4/4] Saving results to " << argv[2] << std::endl;
-        std::ofstream output_file(argv[2]);
-        output_file << result_json.dump(4);
-
-        std::cout << "SUCCESS!" << std::endl;
+        std::ofstream f_out(out_file);
+        f_out << res.dump(4);
+        std::cout << "[2/2] Done! Placed " << placed_count << " parts. Saved to " << out_file << std::endl;
 
     }
     catch (const std::exception& e) {
         std::cerr << "CRITICAL ERROR: " << e.what() << std::endl;
         return 1;
     }
-
     return 0;
 }
