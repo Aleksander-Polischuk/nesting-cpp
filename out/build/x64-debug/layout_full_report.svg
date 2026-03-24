@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg width="550mm" height="1370mm" viewBox="0 0 550 1370" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#fdfdfd"/>
+  <rect x="35" y="30" width="500" height="500" fill="#fff" stroke="#000" stroke-width="2"/>
+  <rect x="40" y="35" width="490" height="490" fill="none" stroke="red" stroke-width="0.3" stroke-dasharray="4,2"/>
+  <text x="285" y="18" font-size="8" font-family="Arial" text-anchor="middle" font-weight="bold">АРКУШ №1</text>
+  <polygon points="347.31,240.07 367.31,280.07 407.31,290.07 427.31,250.07 347.31,240.07 347.31,240.07 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="387.31" y="265.07" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:0</text>
+  <polygon points="426.37,242.07 446.37,282.07 486.37,292.07 506.37,252.07 426.37,242.07 426.37,242.07 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="466.37" y="267.07" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:1</text>
+  <polygon points="409.95,289.44 429.95,329.44 469.95,339.44 489.95,299.44 409.95,289.44 409.95,289.44 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="449.95" y="314.44" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:1</text>
+  <polygon points="41.16,250.07 61.16,290.07 101.16,300.07 121.16,260.07 41.16,250.07 41.16,250.07 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="81.16" y="275.07" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:1</text>
+  <polygon points="41.16,294.67 61.16,334.67 101.16,344.67 121.16,304.67 41.16,294.67 41.16,294.67 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="81.16" y="319.67" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:2</text>
+  <polygon points="264.69,242 260.77,242.26 256.93,243.02 253.21,244.29 249.69,246.02 246.43,248.2 243.48,250.79 240.89,253.74 238.71,257 236.97,260.52 235.71,264.24 234.95,268.09 234.69,272 234.95,275.92 235.71,279.77 236.97,283.48 238.71,287 240.89,290.26 243.48,293.22 246.43,295.8 249.69,297.98 253.21,299.72 256.93,300.98 260.77,301.75 264.69,302 268.61,301.75 272.45,300.98 276.17,299.72 279.69,297.98 282.95,295.8 285.9,293.22 288.49,290.26 290.67,287 292.41,283.48 293.67,279.77 294.43,275.92 294.69,272 294.43,268.09 293.67,264.24 292.41,260.52 290.67,257 288.49,253.74 285.9,250.79 282.95,248.2 279.69,246.02 276.17,244.29 272.45,243.02 268.61,242.26 264.69,242 264.69,242 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="264.69" y="272" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:2</text>
+  <polygon points="326.56,240 322.65,240.26 318.8,241.02 315.08,242.29 311.56,244.02 308.3,246.2 305.35,248.79 302.76,251.74 300.58,255 298.85,258.52 297.59,262.24 296.82,266.09 296.56,270 296.82,273.92 297.59,277.77 298.85,281.48 300.58,285 302.76,288.26 305.35,291.22 308.3,293.8 311.56,295.98 315.08,297.72 318.8,298.98 322.65,299.75 326.56,300 330.48,299.75 334.33,298.98 338.04,297.72 341.56,295.98 344.83,293.8 347.78,291.22 350.36,288.26 352.54,285 354.28,281.48 355.54,277.77 356.31,273.92 356.56,270 356.31,266.09 355.54,262.24 354.28,258.52 352.54,255 350.36,251.74 347.78,248.79 344.83,246.2 341.56,244.02 338.04,242.29 334.33,241.02 330.48,240.26 326.56,240 326.56,240 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="326.56" y="270" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:2</text>
+  <polygon points="509,138 409,138 409,188 509,188 509,138 509,138 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="459" y="163" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:2</text>
+  <polygon points="509,190 409,190 409,240 509,240 509,190 509,190 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="459" y="215" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:2</text>
+  <polygon points="141,198 41,198 41,248 141,248 141,198 141,198 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="91" y="223" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:3</text>
+  <polygon points="243,198 143,198 143,248 243,248 243,198 243,198 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="193" y="223" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:3</text>
+  <polygon points="447,36 347,36 347,76 387,76 387,96 347,96 347,136 447,136 447,36 447,36 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="397" y="86" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:4</text>
+  <polygon points="407,138 307,138 307,178 347,178 347,198 307,198 307,238 407,238 407,138 407,138 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="357" y="188" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:4</text>
+  <polygon points="101,36 41,36 41,196 101,196 101,136 141,136 141,96 101,96 101,36 101,36 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="91" y="116" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:5</text>
+  <polygon points="203,36 143,36 143,196 203,196 203,136 243,136 243,96 203,96 203,36 203,36 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="193" y="116" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:5</text>
+  <polygon points="305,36 245,36 245,196 305,196 305,136 345,136 345,96 305,96 305,36 305,36 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="295" y="116" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:5</text>
+  <text x="35" y="545" font-size="5" font-family="Arial" font-weight="bold">Параметри:</text>
+  <text x="35" y="557" font-size="4.5" font-family="Arial">- Margin: 5 мм | Gap: 2 мм | Kerf: 0.2 мм</text>
+  <text x="35" y="567" font-size="4.5" font-family="Arial">- Деталей: 16 шт.</text>
+  <rect x="35" y="665" width="500" height="500" fill="#fff" stroke="#000" stroke-width="2"/>
+  <rect x="40" y="670" width="490" height="490" fill="none" stroke="red" stroke-width="0.3" stroke-dasharray="4,2"/>
+  <text x="285" y="653" font-size="8" font-family="Arial" text-anchor="middle" font-weight="bold">АРКУШ №2</text>
+  <polygon points="79.22,671 70.4,698.86 41.18,698.64 64.95,715.64 55.71,743.36 79.22,726 102.73,743.36 93.49,715.64 117.26,698.64 88.04,698.86 79.22,671 79.22,671 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="79.22" y="707.18" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:0</text>
+  <polygon points="157.66,671 148.84,698.86 119.62,698.64 143.39,715.64 134.15,743.36 157.66,726 181.17,743.36 171.92,715.64 195.7,698.64 166.48,698.86 157.66,671 157.66,671 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="157.66" y="707.18" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:0</text>
+  <polygon points="236.1,671 227.28,698.86 198.06,698.64 221.83,715.64 212.59,743.36 236.1,726 259.61,743.36 250.36,715.64 274.14,698.64 244.92,698.86 236.1,671 236.1,671 " fill="#e3f2fd" stroke="#1976d2" stroke-width="0.15" />
+  <text x="236.1" y="707.18" font-size="3" font-family="Arial" text-anchor="middle" fill="#0d47a1" font-weight="bold">ID:0</text>
+  <text x="35" y="1180" font-size="5" font-family="Arial" font-weight="bold">Параметри:</text>
+  <text x="35" y="1192" font-size="4.5" font-family="Arial">- Margin: 5 мм | Gap: 2 мм | Kerf: 0.2 мм</text>
+  <text x="35" y="1202" font-size="4.5" font-family="Arial">- Деталей: 3 шт.</text>
+</svg>
